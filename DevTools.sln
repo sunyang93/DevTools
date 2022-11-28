@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTools", "DevTools\DevTools.csproj", "{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTools.Core", "DevTools.Core\DevTools.Core.csproj", "{CFEA1E62-97CE-432E-A314-77350D4491CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTools.Core.Tests", "DevTools.Core.Tests\DevTools.Core.Tests.csproj", "{3286D17C-224E-4412-8852-04A473341800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTools.Core.Tests", "DevTools.Core.Tests\DevTools.Core.Tests.csproj", "{3286D17C-224E-4412-8852-04A473341800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevToolsConsole", "DevToolsConsole\DevToolsConsole.csproj", "{22F0AF0E-3468-4F77-9FB1-951EB5E1AF7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevToolsConsole", "DevToolsConsole\DevToolsConsole.csproj", "{22F0AF0E-3468-4F77-9FB1-951EB5E1AF7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTools.Data", "DevTools.Data\DevTools.Data.csproj", "{D8AE80B3-DC37-4CCC-9B7A-58539F97EF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTools.Data", "DevTools.Data\DevTools.Data.csproj", "{D8AE80B3-DC37-4CCC-9B7A-58539F97EF49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D3EFD77-2BA6-4EF8-8C58-C9515C74838A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{CFEA1E62-97CE-432E-A314-77350D4491CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFEA1E62-97CE-432E-A314-77350D4491CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFEA1E62-97CE-432E-A314-77350D4491CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
