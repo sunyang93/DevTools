@@ -24,6 +24,10 @@ using var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
+Console.WriteLine("Input Schema:");
+var inputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowDto>(JsonSchemaOutputFormatter.JSON);
+Console.WriteLine(inputSchemaData);
+
 var workflowEngine = host.Services.GetRequiredService<IWorkflowsEngine>();
 var workflowDtos = new List<WorkflowDto>()
 {
@@ -71,7 +75,7 @@ var workflowDtos = new List<WorkflowDto>()
                 Description="9折",
                 ErrorMessage="oops",
                 Expression=@"Book.Price>10 AND Book.Rating>=6 AND Book.Author.Gender=""Female"" AND Book.Chapters.Count()>1",
-                SuccessEvent="10"
+                SuccessEvent="10.2"
             },
             new RuleDto()
             {
@@ -94,8 +98,14 @@ var workflowDtos = new List<WorkflowDto>()
     }
 };
 var results = await workflowEngine.Validate(workflowDtos);
+
 Console.WriteLine("Input Data:");
 Console.WriteLine(JsonConvert.SerializeObject(workflowDtos, Formatting.Indented));
+
+Console.WriteLine("Output Schema:");
+var outputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowRulesValidateResult>(JsonSchemaOutputFormatter.JSON);
+Console.WriteLine(outputSchemaData);
+
 Console.WriteLine("Output Data:");
 foreach (var result in results)
 {
@@ -111,10 +121,7 @@ foreach (var result in results)
         Console.WriteLine();
     }
 }
-Console.ReadLine();
 
-var schemaData = new JsonSchemas().GenerateJsonSchema<Book>(JsonSchemaOutputFormatter.JSON);
-Console.WriteLine(schemaData);
 Console.ReadLine();
 
 //string output = ExpressionDescriptor.GetDescription("0-10 15 * * *", new Options()
