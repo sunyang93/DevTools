@@ -12,8 +12,8 @@ namespace DevTools.Core.Tests
         [Fact]
         public async Task ValidateRules_ArgumentNullException()
         {
-            var rules = new Rules();
-            await rules.ValidateRules(null,null);
+            var rules = new WorkflowEngine();
+            await rules.Validate((RulesEngine.Models.Workflow[]?)null,null);
         }
     }
 }

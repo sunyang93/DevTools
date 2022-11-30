@@ -1,7 +1,7 @@
 ﻿namespace DevTools.Data
 {
     /// <summary>
-    /// 博客
+    /// 书籍
     /// </summary>
     public class Book
     {
@@ -9,6 +9,11 @@
         /// 标题
         /// </summary>
         public string Title { get; set; } = null!;
+
+        /// <summary>
+        /// 副标题
+        /// </summary>
+        public string? Subtitle { get; set; }
 
         /// <summary>
         /// 作者
@@ -31,6 +36,16 @@
         public int Rating { get; set; }
 
         /// <summary>
+        /// 总页数
+        /// </summary>
+        public int TotalPages { get; set; }
+
+        /// <summary>
+        /// 总字数
+        /// </summary>
+        public int TotalWordage { get; set; }
+
+        /// <summary>
         /// 定价
         /// </summary>
         public decimal Price { get; set; }
@@ -39,5 +54,28 @@
         /// 发布日期
         /// </summary>
         public DateOnly PublishDate { get; set; }
+
+        public List<Chapter> Chapters { get; set; }
+
+        public Book()
+        {
+            Chapters = new List<Chapter>();
+        }
+    }
+
+    /// <summary>
+    /// 章节
+    /// </summary>
+    public class Chapter
+    {
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; } = null!;
+
+        /// <summary>
+        /// 副标题
+        /// </summary>
+        public string? Subtitle { get; set; }
     }
 }

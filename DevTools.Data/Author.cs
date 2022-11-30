@@ -1,4 +1,7 @@
-﻿namespace DevTools.Data
+﻿using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
+
+namespace DevTools.Data
 {
     /// <summary>
     /// 作者
@@ -18,6 +21,7 @@
         /// <summary>
         /// 性别
         /// </summary>
+        //[JsonConverter(typeof(StringEnumConverter))]
         public Gender Gender { get; set; }
     }
 }
