@@ -14,7 +14,7 @@ using System.Dynamic;
 using System.Net.NetworkInformation;
 using Z.Expressions;
 
-using var host = Host.CreateDefaultBuilder(args)
+using IHost host = Host.CreateDefaultBuilder(args)
     .UseDefaultServiceProvider((context, options) => {
         //options.ValidateScopes = true;
     })
@@ -25,31 +25,32 @@ using var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-var jsonSerializerSettings = new JsonSerializerSettings()
+#region WorkflowEngine
+JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
 {
     ContractResolver = new CamelCasePropertyNamesContractResolver()
 };
 
 Console.WriteLine("Input Schema:");
-var inputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowDto>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
+string inputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowDto>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
 Console.WriteLine(inputSchemaData);
 
-var workflowEngine = host.Services.GetRequiredService<IWorkflowsEngine>();
-var workflowDtos = new List<WorkflowDto>()
+IWorkflowsEngine workflowEngine = host.Services.GetRequiredService<IWorkflowsEngine>();
+List<WorkflowDto> workflowDtos = new List<WorkflowDto>()
 {
     new WorkflowDto()
     {
         WorkflowName="Test",
         Description="Test",
         Inputs=new List<Input>()
-        { 
+        {
             new Input()
             {
                 Name=nameof(Book),
                 Description="Test",
                 Value=new Book()
                 {
-                    Title="Test",  
+                    Title="Test",
                     TotalPages=365,
                     Rating=9,
                     Price=100M,
@@ -68,9 +69,13 @@ var workflowDtos = new List<WorkflowDto>()
                         new Chapter()
                         {
                             Title="Test"
+                        },
+                        new Chapter()
+                        {
+                            Title="Test"
                         }
                     }
-                } 
+                }
             }
         },
         Rules=new List<RuleDto>()
@@ -87,7 +92,6 @@ var workflowDtos = new List<WorkflowDto>()
             {
                 RuleName="15%折扣",
                 Description="当价格大于等于60且评分大于等于9且作者为女性且章节数大于等于3时提供15%的折扣",
-                Enabled=true,
                 ErrorMessage="oops",
                 Expression=@"Book.Price>60 AND Book.Rating>=9 AND Book.Author.Gender=""Female"" AND Book.Chapters.Count()>=3",
                 SuccessEvent="15"
@@ -96,7 +100,7 @@ var workflowDtos = new List<WorkflowDto>()
             {
                 RuleName="20%折扣",
                 Description="当价格大于等于80且评分大于等于9且作者为男性时提供15%的折扣",
-                Enabled=false,
+                Enabled=true,
                 ErrorMessage="oops",
                 Expression=@"Book.Price>80 AND Book.Rating>=9 AND Book.Author.Gender=""Male""",
                 SuccessEvent="20"
@@ -107,16 +111,17 @@ var workflowDtos = new List<WorkflowDto>()
 Console.WriteLine("Input Data:");
 Console.WriteLine(JsonConvert.SerializeObject(workflowDtos, Formatting.Indented, jsonSerializerSettings));
 
-var results = await workflowEngine.Validate(workflowDtos);
+List<WorkflowRulesValidateResult> results = await workflowEngine.Validate(workflowDtos);
 
 Console.WriteLine("Output Schema:");
-var outputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowRulesValidateResult>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
+string outputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowRulesValidateResult>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
 Console.WriteLine(outputSchemaData);
 
 Console.WriteLine("Output Data:");
 Console.WriteLine(JsonConvert.SerializeObject(results, Formatting.Indented, jsonSerializerSettings));
 
 Console.ReadLine();
+#endregion
 
 //string output = ExpressionDescriptor.GetDescription("0-10 15 * * *", new Options()
 //{
@@ -125,6 +130,7 @@ Console.ReadLine();
 //    Locale = "zh-Hans"
 //});
 //Console.WriteLine(output);
+
 //Console.ReadLine();
 
 
