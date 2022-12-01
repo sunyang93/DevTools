@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using NJsonSchema;
 using RulesEngine.Models;
 using System.Dynamic;
@@ -24,8 +25,13 @@ using var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
+var jsonSerializerSettings = new JsonSerializerSettings()
+{
+    ContractResolver = new CamelCasePropertyNamesContractResolver()
+};
+
 Console.WriteLine("Input Schema:");
-var inputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowDto>(JsonSchemaOutputFormatter.JSON);
+var inputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowDto>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
 Console.WriteLine(inputSchemaData);
 
 var workflowEngine = host.Services.GetRequiredService<IWorkflowsEngine>();
@@ -46,7 +52,7 @@ var workflowDtos = new List<WorkflowDto>()
                     Title="Test",  
                     TotalPages=365,
                     Rating=9,
-                    Price=200.6M,
+                    Price=100M,
                     Author=new Author()
                     {
                         Name="Test",
@@ -72,55 +78,43 @@ var workflowDtos = new List<WorkflowDto>()
             new RuleDto()
             {
                 RuleName="10%折扣",
-                Description="9折",
+                Description="当价格大于等于40且评分大于等于8时提供10%的折扣",
                 ErrorMessage="oops",
-                Expression=@"Book.Price>10 AND Book.Rating>=6 AND Book.Author.Gender=""Female"" AND Book.Chapters.Count()>1",
-                SuccessEvent="10.2"
+                Expression=@"Book.Price>40 AND Book.Rating>=8",
+                SuccessEvent="10"
+            },
+            new RuleDto()
+            {
+                RuleName="15%折扣",
+                Description="当价格大于等于60且评分大于等于9且作者为女性且章节数大于等于3时提供15%的折扣",
+                Enabled=true,
+                ErrorMessage="oops",
+                Expression=@"Book.Price>60 AND Book.Rating>=9 AND Book.Author.Gender=""Female"" AND Book.Chapters.Count()>=3",
+                SuccessEvent="15"
             },
             new RuleDto()
             {
                 RuleName="20%折扣",
-                Description="8折",
+                Description="当价格大于等于80且评分大于等于9且作者为男性时提供15%的折扣",
                 Enabled=false,
                 ErrorMessage="oops",
-                Expression=@"Book.Price>50 AND Book.Rating>=8 AND Book.Author.Gender=""Female"" AND Book.Chapters.Count()>1",
+                Expression=@"Book.Price>80 AND Book.Rating>=9 AND Book.Author.Gender=""Male""",
                 SuccessEvent="20"
-            },
-            new RuleDto()
-            {
-                RuleName="30%折扣",
-                Description="7折",
-                ErrorMessage="oops",
-                Expression=@"Book.Price>150 AND Book.TotalPages>300 AND Book.Rating>=9 AND Book.Author.Gender=""Female""",
-                SuccessEvent="30"
             },
         }
     }
 };
+Console.WriteLine("Input Data:");
+Console.WriteLine(JsonConvert.SerializeObject(workflowDtos, Formatting.Indented, jsonSerializerSettings));
+
 var results = await workflowEngine.Validate(workflowDtos);
 
-Console.WriteLine("Input Data:");
-Console.WriteLine(JsonConvert.SerializeObject(workflowDtos, Formatting.Indented));
-
 Console.WriteLine("Output Schema:");
-var outputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowRulesValidateResult>(JsonSchemaOutputFormatter.JSON);
+var outputSchemaData = new JsonSchemas().GenerateJsonSchema<WorkflowRulesValidateResult>(JsonSchemaOutputFormatter.JSON, jsonSerializerSettings);
 Console.WriteLine(outputSchemaData);
 
 Console.WriteLine("Output Data:");
-foreach (var result in results)
-{
-    Console.WriteLine($"Workflow:{result.WorkflowName}");
-    Console.WriteLine($"IsSuccess:{result.IsSuccess}");
-    foreach (var _result in result.RulesValidateResult)
-    {
-        Console.WriteLine($"-Rule:{_result.RuleName}");
-        Console.WriteLine($"--Expression:{_result.Expression}");
-        Console.WriteLine($"--IsSuccess:{_result.IsSuccess}");
-        Console.WriteLine($"--ExceptionMessage:{_result.ExceptionMessage}");
-        Console.WriteLine($"--SuccessEvent:{_result.SuccessEvent}");
-        Console.WriteLine();
-    }
-}
+Console.WriteLine(JsonConvert.SerializeObject(results, Formatting.Indented, jsonSerializerSettings));
 
 Console.ReadLine();
 

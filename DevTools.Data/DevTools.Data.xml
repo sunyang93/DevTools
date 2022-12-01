@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevTools.Data</name>
+    </assembly>
+    <members>
+        <member name="T:DevTools.Data.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Author.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Author.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Author.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.Book">
+            <summary>
+            书籍
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Subtitle">
+            <summary>
+            副标题
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Url">
+            <summary>
+            链接
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Rating">
+            <summary>
+            评分
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.TotalWordage">
+            <summary>
+            总字数
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Price">
+            <summary>
+            定价
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.PublishDate">
+            <summary>
+            发布日期
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Book.Chapters">
+            <summary>
+            章节
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.Chapter">
+            <summary>
+            章节
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Chapter.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Chapter.Subtitle">
+            <summary>
+            副标题
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.Gender.Male">
+            <summary>
+            男性
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.Gender.Female">
+            <summary>
+            女性
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.Input">
+            <summary>
+            输入参数
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Input.Name">
+            <summary>
+            参数名
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Input.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Input.Value">
+            <summary>
+            参数值
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.RuleDto">
+            <summary>
+            规则
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.RuleName">
+            <summary>
+            规则名
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.Enabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.Expression">
+            <summary>
+            表达式
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.ErrorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleDto.Properties">
+            <summary>
+            自定义属性
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleValidateResult.RuleName">
+            <summary>
+            规则名称
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleValidateResult.Expression">
+            <summary>
+            表达式
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleValidateResult.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.RuleValidateResult.ExceptionMessage">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowDto.WorkflowName">
+            <summary>
+            工作流名称
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowDto.Inputs">
+            <summary>
+            输入参数集
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowDto.Rules">
+            <summary>
+            规则集
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowRulesValidateResult.WorkflowName">
+            <summary>
+            工作流名称
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.WorkflowRulesValidateResult.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+    </members>
+</doc>
