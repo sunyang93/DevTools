@@ -99,6 +99,106 @@
             副标题
             </summary>
         </member>
+        <member name="T:DevTools.Data.CourtesyCardRule">
+            <summary>
+            优惠券生成规则
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.Name">
+            <summary>
+            规则名称
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.CourtesyCardType">
+            <summary>
+            券的类型
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.TargetObject">
+            <summary>
+            适用的对象
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.TermOfValidity">
+            <summary>
+            有效期
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.RuleDescription">
+            <summary>
+            规则说明
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.CourtesyCardType">
+            <summary>
+            券的类型
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.CourtesyCardType.FullCouponReduction">
+            <summary>
+            满减券
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.CourtesyCardType.DiscountCoupon">
+            <summary>
+            折扣券
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.TargetObject">
+            <summary>
+            适用的对象
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.TargetObject.Product">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.TargetObject.Store">
+            <summary>
+            店铺
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.TargetObject.Order">
+            <summary>
+            订单
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.TermOfValidity">
+            <summary>
+            有效期
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.LimitType.Hour">
+            <summary>
+            小时
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.LimitType.Day">
+            <summary>
+            天
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.LimitType.Month">
+            <summary>
+            月份
+            </summary>
+        </member>
+        <member name="F:DevTools.Data.LimitType.Year">
+            <summary>
+            年
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.CourtesyCard">
+            <summary>
+            优惠券
+            </summary>
+        </member>
         <member name="T:DevTools.Data.Gender">
             <summary>
             性别
@@ -132,6 +232,72 @@
         <member name="P:DevTools.Data.Input.Value">
             <summary>
             参数值
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.Order">
+            <summary>
+            订单
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Order.OrderNo">
+            <summary>
+            订单编号
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Order.TotalPrice">
+            <summary>
+            总价
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Order.CouponPrice">
+            <summary>
+            券后价
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Order.Products">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="M:DevTools.Data.Order.AddProducts(System.Collections.Generic.List{DevTools.Data.Product})">
+            <summary>
+            添加产品
+            </summary>
+            <param name="products"></param>
+        </member>
+        <member name="T:DevTools.Data.Product">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.ProductNo">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.Store">
+            <summary>
+            店铺
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.Price">
+            <summary>
+            单价
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.Quantity">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.TotalPrice">
+            <summary>
+            总价
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.Product.CouponPrice">
+            <summary>
+            券后价
             </summary>
         </member>
         <member name="T:DevTools.Data.RuleDto">

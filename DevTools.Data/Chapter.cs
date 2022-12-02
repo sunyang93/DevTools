@@ -14,5 +14,7 @@
         /// 副标题
         /// </summary>
         public string? Subtitle { get; set; }
+
+        public decimal Money { get; set; }
     }
 }

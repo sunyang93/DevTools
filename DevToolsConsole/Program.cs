@@ -1,4 +1,5 @@
 ﻿using CronExpressionDescriptor;
+using CsvHelper.Configuration.Attributes;
 using DevTools.Core;
 using DevTools.Data;
 using Hardware.Info;
@@ -10,7 +11,9 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using NJsonSchema;
 using RulesEngine.Models;
+using System;
 using System.Dynamic;
+using System.Linq.Dynamic.Core;
 using System.Net.NetworkInformation;
 using Z.Expressions;
 
@@ -24,6 +27,32 @@ using IHost host = Host.CreateDefaultBuilder(args)
         services.AddScoped<IWorkflowsEngine, WorkflowsEngine>();
     })
     .Build();
+
+var courtesyCardRule = new CourtesyCardRule("test", 
+    CourtesyCardType.FullCouponReduction, 
+    TargetObject.Product, 
+    new TermOfValidity(), 
+    "", 
+    "", 
+    "");
+Console.WriteLine(JsonConvert.SerializeObject(courtesyCardRule, Formatting.Indented));
+var order = new Order(120.45M);
+order.AddProducts(new List<Product>()
+{
+    new Product("a",12.56M,2),
+    new Product("a",11.21M,3),
+    new Product("a",22.34M,5),
+});
+Console.WriteLine(JsonConvert.SerializeObject(order, Formatting.Indented));
+#region Eval Expression
+var _result = Enum.GetValues<DayOfWeek>().Where(d => d == DayOfWeek.Friday || d == DayOfWeek.Sunday).Contains(DateTime.Now.DayOfWeek);
+var result = "Enum.GetValues<DayOfWeek>().Where(d=>d==DayOfWeek.Friday||d==DayOfWeek.Sunday).Contains(DateTime.Now.DayOfWeek)".Execute<bool>();
+Console.WriteLine(result);
+var result1 = "DayOfWeeks.Where(d=>d==DayOfWeek.Friday||d==DayOfWeek.Sunday).Contains(DateTime.Now.DayOfWeek)"
+    .Execute<bool>(new { DayOfWeeks = Enum.GetValues<DayOfWeek>() });
+Console.WriteLine(result1);
+Console.ReadKey();
+#endregion
 
 #region WorkflowEngine
 JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
@@ -64,18 +93,26 @@ List<WorkflowDto> workflowDtos = new List<WorkflowDto>()
                     {
                         new Chapter()
                         {
-                            Title="Test"
+                            Title="Test",
+                            Money=11.3M,
                         },
                         new Chapter()
                         {
-                            Title="Test"
+                            Title="Test1",
+                            Money=23.5M,
                         },
                         new Chapter()
                         {
-                            Title="Test"
+                            Title="Test2",
+                            Money=36.1M,
                         }
                     }
                 }
+            },
+            new Input()
+            {
+                Name="DayOfWeeks",
+                Value=Enum.GetValues<DayOfWeek>()
             }
         },
         Rules=new List<RuleDto>()
@@ -85,7 +122,7 @@ List<WorkflowDto> workflowDtos = new List<WorkflowDto>()
                 RuleName="10%折扣",
                 Description="当价格大于等于40且评分大于等于8时提供10%的折扣",
                 ErrorMessage="oops",
-                Expression=@"Book.Price>40 AND Book.Rating>=8",
+                Expression=@"Book.Price>40 AND Book.Rating>=8 AND Book.Chapters.Where(d=>d.Title.Contains(""Test"")).Sum(Money)>70",
                 SuccessEvent="10"
             },
             new RuleDto()
@@ -105,6 +142,14 @@ List<WorkflowDto> workflowDtos = new List<WorkflowDto>()
                 Expression=@"Book.Price>80 AND Book.Rating>=9 AND Book.Author.Gender=""Male""",
                 SuccessEvent="20"
             },
+            new RuleDto()
+            {
+                RuleName="Test",
+                Description="当价格大于等于80且评分大于等于9且作者为男性时提供15%的折扣",
+                ErrorMessage="oops",
+                Expression="DayOfWeeks.Where(d=>d==DayOfWeek.Friday||d==DayOfWeek.Sunday).Contains(DateTime.Now.DayOfWeek)",
+                SuccessEvent="Test"
+            },
         }
     }
 };
@@ -123,6 +168,7 @@ Console.WriteLine(JsonConvert.SerializeObject(results, Formatting.Indented, json
 Console.ReadLine();
 #endregion
 
+#region Cron
 //string output = ExpressionDescriptor.GetDescription("0-10 15 * * *", new Options()
 //{
 //    DayOfWeekStartIndexZero = false,
@@ -132,7 +178,7 @@ Console.ReadLine();
 //Console.WriteLine(output);
 
 //Console.ReadLine();
-
+#endregion
 
 //IHardwareInfo hardwareInfo = new HardwareInfo();
 
@@ -214,42 +260,16 @@ Console.ReadLine();
 //foreach (var address in HardwareInfo.GetLocalIPv4Addresses())
 //    Console.WriteLine(address);
 
+#region hashids
 //string salt = "";
 //int minLength = 12;
 //long id = 1;
 //var hashids = new Hashids(salt, minLength);
 //var hash = hashids.EncodeLong(id);
 //Console.WriteLine(hash);
-//long _id=hashids.DecodeSingleLong(hash);
+//long _id = hashids.DecodeSingleLong(hash);
 //Console.WriteLine(_id);
-
-
-//Book book = new()
-//{
-//    Title="test",
-//    Rating=5,
-//    Price=12m,
-//};
-//var data = book.ShapeData("title,price");
-//Console.WriteLine(JsonConvert.SerializeObject(data));
-//List<Book> books = new List<Book>()
-//{
-//    new Book()
-//    {
-//        Title = "test",
-//        Rating = 5,
-//        Price = 12m,
-//    },
-//    new Book()
-//    {
-//        Title = "demo",
-//        Rating = 8,
-//        Price = 34.5m,
-//    }
-//};
-//var data = books.ShapeData<List<Book>>("title,price");
-//Console.WriteLine(JsonConvert.SerializeObject(data));
-//Console.ReadLine(); 
+#endregion
 
 
 
