@@ -4,6 +4,7 @@ using DevTools.Core;
 using DevTools.Data;
 using Hardware.Info;
 using HashidsNet;
+using Microsoft.Diagnostics.Tracing.Parsers.AspNet;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using NJsonSchema;
 using RulesEngine.Models;
 using System;
 using System.Dynamic;
+using System.Globalization;
 using System.Linq.Dynamic.Core;
 using System.Net.NetworkInformation;
 using Z.Expressions;
@@ -28,10 +30,22 @@ using IHost host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
+var time = DateTime.Now.Month == 8 || DateTime.Now.Month == 9 || DateTime.Now.Month == 10;
+var bd = @" DateTime.Now>= DateTime.Parse(""10:23:23"") && DateTime.Now<=DateTime.Parse(""12:34:56"")".Execute<bool>();
+var dfs=CultureInfo.GetCultureInfo("en-US").DateTimeFormat.MonthNames;
+//string.Concat(prefix, suffix);
+while (Console.ReadKey().KeyChar=='R')
+{
+    Console.WriteLine();
+    var ex = "string.Concat(\"abc-\",DateTime.Now.ToString(\"yyyyMMddHHmmss\"),\"-\",Random.Shared.Next(100, 1000), \"-xyz\")".Execute<dynamic>();
+    Console.WriteLine(ex);
+}
+
 var courtesyCardRule = new CourtesyCardRule("test", 
     CourtesyCardType.FullCouponReduction, 
     TargetObject.Product, 
-    new TermOfValidity(), 
+    new TermOfValidity(false,3,LimitType.Day), 
+    new TimeInterval(false,"13:12:00","22:22:23"), 
     "", 
     "", 
     "");

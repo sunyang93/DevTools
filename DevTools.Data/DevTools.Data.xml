@@ -129,6 +129,11 @@
             有效期
             </summary>
         </member>
+        <member name="P:DevTools.Data.CourtesyCardRule.TimeInterval">
+            <summary>
+            适用的时段
+            </summary>
+        </member>
         <member name="P:DevTools.Data.CourtesyCardRule.RuleDescription">
             <summary>
             规则说明
@@ -192,6 +197,26 @@
         <member name="F:DevTools.Data.LimitType.Year">
             <summary>
             年
+            </summary>
+        </member>
+        <member name="T:DevTools.Data.TimeInterval">
+            <summary>
+            适用的时段
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.TimeInterval.NoLimit">
+            <summary>
+            全时段可用
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.TimeInterval.Begin">
+            <summary>
+            开始时间(格式 00:00:00)
+            </summary>
+        </member>
+        <member name="P:DevTools.Data.TimeInterval.End">
+            <summary>
+            截止时间(格式 00:00:00)
             </summary>
         </member>
         <member name="T:DevTools.Data.CourtesyCard">
